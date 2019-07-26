@@ -18,6 +18,7 @@ use Oro\Bundle\ApiBundle\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Diamante\DeskBundle\Api\Command\MoveTicketCommand;
 
 class MoveTicketType extends AbstractType
 {
@@ -30,7 +31,7 @@ class MoveTicketType extends AbstractType
                 'label'         => 'diamante.desk.attributes.branch',
                 'class'         => 'DiamanteDeskBundle:Branch',
                 'choice_label'      => 'name',
-                'attr'          => array('style' => "width:200px"),
+                'attr'          => array('style' => 'width:200px'),
                 'required'      => true
             )
         );
@@ -39,11 +40,11 @@ class MoveTicketType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Diamante\DeskBundle\Api\Command\MoveTicketCommand',
+                'data_class' => MoveTicketCommand::class,
                 'intention' => 'ticket',
                 'cascade_validation' => true
             )
@@ -56,6 +57,11 @@ class MoveTicketType extends AbstractType
      * @return string The name of this type
      */
     public function getName()
+    {
+        return $this->getBlockPrefix();
+    }
+
+    public function getBlockPrefix()
     {
         return 'diamante_ticket_form_move';
     }
