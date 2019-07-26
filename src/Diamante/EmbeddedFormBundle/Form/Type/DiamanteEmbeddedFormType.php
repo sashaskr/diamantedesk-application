@@ -15,13 +15,15 @@
 namespace Diamante\EmbeddedFormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
-use Oro\Bundle\EmbeddedFormBundle\Form\Type\CustomLayoutFormInterface;
 
 use Diamante\DeskBundle\Form\DataTransformer\AttachmentTransformer;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class DiamanteEmbeddedFormType extends AbstractType implements EmbeddedFormInterface
 {
@@ -29,6 +31,11 @@ class DiamanteEmbeddedFormType extends AbstractType implements EmbeddedFormInter
      * {@inheritdoc}
      */
     public function getName()
+    {
+        return $this->getBlockPrefix();
+    }
+
+    public function getBlockPrefix()
     {
         return 'diamante_embedded_form';
     }
@@ -40,25 +47,25 @@ class DiamanteEmbeddedFormType extends AbstractType implements EmbeddedFormInter
     {
         $builder->add(
             'firstName',
-            'text',
+            TextType::class,
             ['required' => true, 'label' => 'First Name']
         );
 
         $builder->add(
             'lastName',
-            'text',
+            TextType::class,
             ['required' => true, 'label' => 'Last Name']
         );
 
         $builder->add(
             'emailAddress',
-            'email',
+            EmailType::class,
             ['required' => true, 'label' => 'Email']
         );
 
         $builder->add(
             'subject',
-            'text',
+            TextType::class,
             array(
                 'label' => 'diamante.desk.attributes.subject',
                 'required' => true,
@@ -67,7 +74,7 @@ class DiamanteEmbeddedFormType extends AbstractType implements EmbeddedFormInter
 
         $builder->add(
             'description',
-            'textarea',
+            TextareaType::class,
             array(
                 'label' => 'diamante.desk.common.description',
                 'required' => true,
@@ -80,7 +87,7 @@ class DiamanteEmbeddedFormType extends AbstractType implements EmbeddedFormInter
         $builder->add(
             $builder->create(
                 'attachmentsInput',
-                'file',
+                FileType::class,
                 array(
                     'label' => 'diamante.desk.attachment.file',
                     'required' => false,
