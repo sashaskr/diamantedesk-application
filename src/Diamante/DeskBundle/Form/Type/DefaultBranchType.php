@@ -16,6 +16,7 @@ namespace Diamante\DeskBundle\Form\Type;
 
 use Diamante\DeskBundle\Api\BranchService;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DefaultBranchType extends AbstractType
@@ -30,7 +31,7 @@ class DefaultBranchType extends AbstractType
         $this->branchService = $branchService;
     }
 
-    public function setDefaultOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $choices = array();
         foreach ($this->branchService->getAllbranches() as $branch) {
@@ -43,7 +44,7 @@ class DefaultBranchType extends AbstractType
 
     public function getParent()
     {
-        return 'choice';
+        return ChoiceType::class;
     }
 
     /**
@@ -52,6 +53,11 @@ class DefaultBranchType extends AbstractType
      * @return string The name of this type
      */
     public function getName()
+    {
+        return $this->getBlockPrefix();
+    }
+
+    public function getBlockPrefix()
     {
         return 'diamante_desk_default_branch';
     }

@@ -22,6 +22,7 @@ use Diamante\DeskBundle\Entity\Attachment;
 use Diamante\DeskBundle\Form\CommandFactory;
 use Diamante\DeskBundle\Form\Type\AttachmentType;
 use Diamante\DeskBundle\Form\Type\CreateTicketType;
+use Diamante\DeskBundle\Form\Type\MassChangeTicketStatusType;
 use Diamante\DeskBundle\Form\Type\UpdateTicketType;
 use Diamante\DeskBundle\Model\Ticket\Exception\TicketMovedException;
 use Diamante\DeskBundle\Model\Ticket\Exception\TicketNotFoundException;
@@ -662,7 +663,7 @@ class TicketController extends Controller
             $command = $this->get('diamante.command_factory')
                 ->createChangeStatusMassCommand($values, $inset);
 
-            $form = $this->createForm('diamante_ticket_form_status_mass_change', $command);
+            $form = $this->createForm(MassChangeTicketStatusType::class, $command);
 
             if (true === $this->widgetRedirectRequested($request)) {
                 return ['form' => $form->createView()];

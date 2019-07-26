@@ -18,6 +18,7 @@ use Diamante\DeskBundle\Form\Type\AssigneeSelectType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Diamante\DeskBundle\Api\Command\MassActionCommands\MassAssigneeTicketCommand;
 
 class MassAssigneeTicketType extends AbstractType
 {
@@ -41,11 +42,11 @@ class MassAssigneeTicketType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Diamante\DeskBundle\Api\Command\MassActionCommands\MassAssigneeTicketCommand',
+                'data_class' => MassAssigneeTicketCommand::class,
                 'intention' => 'ticket',
                 'cascade_validation' => true
             )
@@ -58,6 +59,11 @@ class MassAssigneeTicketType extends AbstractType
      * @return string The name of this type
      */
     public function getName()
+    {
+        return $this->getBlockPrefix();
+    }
+
+    public function getBlockPrefix()
     {
         return 'diamante_ticket_form_mass_assignee';
     }

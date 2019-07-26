@@ -18,6 +18,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Diamante\DeskBundle\Api\Command\MassActionCommands\MassMoveTicketCommand;
 
 class MassMoveTicketType extends AbstractType
 {
@@ -43,11 +44,11 @@ class MassMoveTicketType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Diamante\DeskBundle\Api\Command\MassActionCommands\MassMoveTicketCommand',
+                'data_class' => MassMoveTicketCommand::class,
                 'intention' => 'ticket',
                 'cascade_validation' => true
             )
@@ -60,6 +61,11 @@ class MassMoveTicketType extends AbstractType
      * @return string The name of this type
      */
     public function getName()
+    {
+        return $this->getBlockPrefix();
+    }
+
+    public function getBlockPrefix()
     {
         return 'diamante_ticket_form_mass_move';
     }

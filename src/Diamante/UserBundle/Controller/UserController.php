@@ -58,12 +58,12 @@ class UserController extends Controller
      * @Route("/create", name="diamante_user_create")
      * @Template()
      */
-    public function createAction()
+    public function createAction(Request $request)
     {
         $command = new CreateDiamanteUserCommand();
         try {
             $form = $this->createForm(CreateDiamanteUserType::class, $command);
-            $result = $this->edit($command, $form, function($command) {
+            $result = $this->edit($request, $command, $form, function($command) {
                 $userId = $this->get('diamante.user.service')->createDiamanteUser($command);
                 return $userId;
             });
@@ -87,7 +87,7 @@ class UserController extends Controller
      *
      * @return array|null|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function updateAction($id)
+    public function updateAction(Request $request, $id)
     {
         $command = new UpdateDiamanteUserCommand();
         /** @var DiamanteUser $user */
@@ -103,7 +103,7 @@ class UserController extends Controller
 
         try {
             $form = $this->createForm(UpdateDiamanteUserType::class, $command);
-            $result = $this->edit($command, $form, function($command) {
+            $result = $this->edit($request, $command, $form, function($command) {
                 $userId = $this->get('diamante.user.service')->updateDiamanteUser($command);
                 return $userId;
             });
