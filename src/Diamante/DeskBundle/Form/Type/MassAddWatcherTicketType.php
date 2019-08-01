@@ -19,6 +19,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Diamante\DeskBundle\Api\Command\MassActionCommands\MassAddWatcherCommand;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class MassAddWatcherTicketType extends AbstractType
 {
@@ -48,7 +49,7 @@ class MassAddWatcherTicketType extends AbstractType
             array(
                 'data_class' => MassAddWatcherCommand::class,
                 'intention' => 'watcher',
-                'cascade_validation' => true
+                'constraints' => new Valid(),
             )
         );
     }

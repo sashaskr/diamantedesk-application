@@ -20,6 +20,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Diamante\DeskBundle\Form\DataTransformer\StatusTransformer;
 use Diamante\DeskBundle\Api\Command\MassActionCommands\MassChangeStatusCommand;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class MassChangeTicketStatusType extends AbstractType
 {
@@ -55,7 +56,7 @@ class MassChangeTicketStatusType extends AbstractType
             array(
                 'data_class' => MassChangeStatusCommand::class,
                 'intention' => 'ticket_status',
-                'cascade_validation' => true
+                'constraints' => new Valid(),
             )
         );
     }

@@ -25,6 +25,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Diamante\DeskBundle\Form\DataTransformer\StatusTransformer;
 use Diamante\DeskBundle\Api\Command\CommentCommand;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class CommentType extends AbstractType
 {
@@ -88,7 +89,7 @@ class CommentType extends AbstractType
             [
                 'data_class' => CommentCommand::class,
                 'intention' => 'comment',
-                'cascade_validation' => true,
+                'constraints' => new Valid(),
             ]
         );
     }

@@ -19,6 +19,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Diamante\DeskBundle\Api\Command\MassActionCommands\MassMoveTicketCommand;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class MassMoveTicketType extends AbstractType
 {
@@ -50,7 +51,7 @@ class MassMoveTicketType extends AbstractType
             array(
                 'data_class' => MassMoveTicketCommand::class,
                 'intention' => 'ticket',
-                'cascade_validation' => true
+                'constraints' => new Valid(),
             )
         );
     }

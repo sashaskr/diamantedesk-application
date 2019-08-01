@@ -19,6 +19,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Diamante\DeskBundle\Api\Command\MassActionCommands\MassAssigneeTicketCommand;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class MassAssigneeTicketType extends AbstractType
 {
@@ -48,7 +49,7 @@ class MassAssigneeTicketType extends AbstractType
             array(
                 'data_class' => MassAssigneeTicketCommand::class,
                 'intention' => 'ticket',
-                'cascade_validation' => true
+                'constraints' => new Valid(),
             )
         );
     }
