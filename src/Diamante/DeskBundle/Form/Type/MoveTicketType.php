@@ -19,6 +19,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Diamante\DeskBundle\Api\Command\MoveTicketCommand;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class MoveTicketType extends AbstractType
 {
@@ -46,7 +47,7 @@ class MoveTicketType extends AbstractType
             array(
                 'data_class' => MoveTicketCommand::class,
                 'intention' => 'ticket',
-                'cascade_validation' => true
+                'constraints' => new Valid(),
             )
         );
     }
