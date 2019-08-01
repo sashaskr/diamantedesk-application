@@ -14,7 +14,11 @@
  */
 namespace Diamante\EmbeddedFormBundle\Controller;
 
+use Diamante\EmbeddedFormBundle\Form\Extension\EmbeddedFormTypeExtension;
+use Diamante\EmbeddedFormBundle\Form\Type\DiamanteEmbeddedFormType;
 use Diamante\UserBundle\Model\User;
+use Oro\Bundle\EmbeddedFormBundle\Manager\EmbeddedFormManager;
+use Oro\Bundle\EmbeddedFormBundle\Manager\EmbedFormLayoutManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -41,15 +45,15 @@ class DiamanteEmbeddedFormController extends Controller
     {
         $response = new Response();
         $response->setPublic();
+        $formEntity->setFormType(DiamanteEmbeddedFormType::class);
         //$response->setEtag($formEntity->getId() . $formEntity->getUpdatedAt()->format(\DateTime::ISO8601));
         if ($response->isNotModified($request)) {
             return $response;
         }
 
         $command = new EmbeddedTicketCommand();
-
         $formManager = $this->get('oro_embedded_form.manager');
-        $form        = $formManager->createForm($formEntity->getFormType());
+        $form        = $formManager->createForm($formEntity->getFormType(), $command);
 
         if (in_array($request->getMethod(), ['POST', 'PUT'])) {
 
@@ -112,7 +116,8 @@ class DiamanteEmbeddedFormController extends Controller
         );
 
         $layoutManager = $this->get('oro_embedded_form.embed_form_layout_manager');
-        $layoutContent = $layoutManager->getLayout($formEntity, $form)->render();
+        $layout = $layoutManager->getLayout($formEntity, $form);
+        $layoutContent = $layout->render();
 
         $replaceString = '<div id="page">';
 

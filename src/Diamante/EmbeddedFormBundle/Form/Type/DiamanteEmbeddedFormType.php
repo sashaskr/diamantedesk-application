@@ -14,9 +14,14 @@
  */
 namespace Diamante\EmbeddedFormBundle\Form\Type;
 
+use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormType;
+use Oro\Component\Layout\LayoutItemInterface;
+use Oro\Component\Layout\LayoutManipulatorInterface;
+use Oro\Component\Layout\LayoutUpdateInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -99,7 +104,7 @@ class DiamanteEmbeddedFormType extends AbstractType implements EmbeddedFormInter
             ->addModelTransformer(new AttachmentTransformer())
         );
 
-        $builder->add('submit', 'submit');
+        $builder->add('submit', SubmitType::class);
     }
 
     /**
