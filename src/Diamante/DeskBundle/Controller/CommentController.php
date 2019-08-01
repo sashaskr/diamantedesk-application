@@ -50,12 +50,12 @@ class CommentController extends Controller
      * @param int $id
      * @return array
      */
-    public function createAction($id)
+    public function createAction(Request $request, $id)
     {
         $ticket = $this->get('diamante.ticket.service')->loadTicket($id);
         $command = $this->get('diamante.command_factory')
             ->createCommentCommandForCreate($ticket, new User($this->getUser()->getId(), User::TYPE_ORO));
-        return $this->edit($command, function($command) {
+        return $this->edit($request, $command, function($command) {
             $this->get('diamante.comment.service')
                 ->postNewCommentForTicket($command);
         }, $ticket);
@@ -73,12 +73,12 @@ class CommentController extends Controller
      * @param int $id
      * @return array
      */
-    public function updateAction($id)
+    public function updateAction(Request $request, $id)
     {
         $comment = $this->get('diamante.comment.service')->loadComment($id);
         $command = $this->get('diamante.command_factory')
             ->createCommentCommandForUpdate($comment);
-        return $this->edit($command, function($command) use ($comment) {
+        return $this->edit($request, $command, function($command) use ($comment) {
             $this->get('diamante.comment.service')->updateTicketComment($command);
         }, $comment->getTicket());
     }
