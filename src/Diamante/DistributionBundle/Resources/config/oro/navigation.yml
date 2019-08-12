@@ -9,14 +9,14 @@ navigation:
           routes:     ['oro_embedded_form_*']
       diamante_branch_list:
         label: 'diamante.desk.branch.entity_plural_label'
-        route: diamante_branch_list
+        route: 'diamante_branch_list'
         extras:
           icon: fa-archive
           routes: ['diamante_branch_*']
           position: 80
       diamante_ticket_list:
         label: 'diamante.desk.ticket.entity_plural_label'
-        route: diamante_ticket_list
+        route: 'diamante_ticket_list'
         extras:
           icon: fa-check
           routes: ['diamante_ticket_*', 'diamante_comment_*']
@@ -42,7 +42,7 @@ navigation:
 
       diamante_event_triggered_list:
         label: 'diamante.automation.rule.event_triggered.entity_label'
-        route: diamante_event_triggered_list
+        route: 'diamante_event_triggered_list'
         extras:
           routes:
             route: 'diamante_event_triggered_*'
@@ -52,7 +52,7 @@ navigation:
 
       diamante_time_triggered_list:
         label: 'diamante.automation.rule.time_triggered.entity_label'
-        route: diamante_time_triggered_list
+        route: 'diamante_time_triggered_list'
         extras:
           routes:
             route: 'diamante_time_triggered_*'
@@ -63,7 +63,7 @@ navigation:
       #reports
       diamante_report_tickets_by_priority:
         label: 'diamante.desk.report.reports.tickets_by_priority'
-        route: diamante_report_view
+        route: 'diamante_report_view'
         extras:
           routes:
             route: 'diamante_report_*'
@@ -72,7 +72,7 @@ navigation:
 
       diamante_report_time_of_response:
         label: 'diamante.desk.report.reports.tickets_by_response_time'
-        route: diamante_report_view
+        route: 'diamante_report_view'
         extras:
           routes:
             route: 'diamante_report_*'
@@ -81,7 +81,7 @@ navigation:
 
       diamante_report_tickets_by_channels:
         label: 'diamante.desk.report.reports.tickets_by_channels'
-        route: diamante_report_view
+        route: 'diamante_report_view'
         extras:
           routes:
             route: 'diamante_report_*'
@@ -90,7 +90,7 @@ navigation:
 
       diamante_report_tickets_by_branches:
         label:  'diamante.desk.report.reports.tickets_by_branches'
-        route: diamante_report_view
+        route: 'diamante_report_view'
         extras:
           routes:
             route: 'diamante_report_*'
@@ -99,7 +99,7 @@ navigation:
 
       diamante_report_ticket_timeline:
         label:  'diamante.desk.report.reports.ticket_timeline'
-        route: diamante_report_view
+        route: 'diamante_report_view'
         extras:
           routes:
             route: 'diamante_report_*'
