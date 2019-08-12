@@ -11,14 +11,14 @@ navigation:
         label: 'diamante.desk.branch.entity_plural_label'
         route: diamante_branch_list
         extras:
-          icon: icon-archive
+          icon: fa-archive
           routes: ['diamante_branch_*']
           position: 80
       diamante_ticket_list:
         label: 'diamante.desk.ticket.entity_plural_label'
         route: diamante_ticket_list
         extras:
-          icon: icon-check
+          icon: fa-check
           routes: ['diamante_ticket_*', 'diamante_comment_*']
           position: 90
       diamante_automation_list:
@@ -30,14 +30,14 @@ navigation:
         label: 'diamante.desk.report.plural_label'
         uri: '#'
         extras:
-          icon: icon-bar-chart
+          icon: fa-chart-bar
           position: 95
 
       diamante_customer_management:
         label: 'diamante.user.labels.entity.plural'
         route: 'diamante_user_list'
         extras:
-          icon: icon-group
+          icon: fa-users
           position: 96
 
       diamante_event_triggered_list:
@@ -138,7 +138,7 @@ navigation:
         label: 'System'
         uri: '#'
         extras:
-          icon: icon-cog
+          icon: fa-cog
           position: 100
     tree:
       application_menu:
