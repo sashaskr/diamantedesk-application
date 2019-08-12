@@ -12,6 +12,7 @@
  * obtain it through the world-wide-web, please send an email
  * to license@eltrino.com so we can send you a copy immediately.
  */
+
 namespace Diamante\DeskBundle\Controller;
 
 use Diamante\DeskBundle\Api\CommentService;
@@ -55,10 +56,16 @@ class CommentController extends Controller
         $ticket = $this->get('diamante.ticket.service')->loadTicket($id);
         $command = $this->get('diamante.command_factory')
             ->createCommentCommandForCreate($ticket, new User($this->getUser()->getId(), User::TYPE_ORO));
-        return $this->edit($request, $command, function($command) {
-            $this->get('diamante.comment.service')
-                ->postNewCommentForTicket($command);
-        }, $ticket);
+
+        return $this->edit(
+            $request,
+            $command,
+            function ($command) {
+                $this->get('diamante.comment.service')
+                    ->postNewCommentForTicket($command);
+            },
+            $ticket
+        );
     }
 
     /**
@@ -78,9 +85,15 @@ class CommentController extends Controller
         $comment = $this->get('diamante.comment.service')->loadComment($id);
         $command = $this->get('diamante.command_factory')
             ->createCommentCommandForUpdate($comment);
-        return $this->edit($request, $command, function($command) use ($comment) {
-            $this->get('diamante.comment.service')->updateTicketComment($command);
-        }, $comment->getTicket());
+
+        return $this->edit(
+            $request,
+            $command,
+            function ($command) use ($comment) {
+                $this->get('diamante.comment.service')->updateTicketComment($command);
+            },
+            $comment->getTicket()
+        );
     }
 
     /**
@@ -93,9 +106,10 @@ class CommentController extends Controller
     public function attachmentList($id)
     {
         $comment = $this->get('diamante.comment.service')->loadComment($id);
+
         return [
             'comment_id' => $comment->getId(),
-            'attachments' => $comment->getAttachments()
+            'attachments' => $comment->getAttachments(),
         ];
     }
 
@@ -112,7 +126,7 @@ class CommentController extends Controller
         $formView = $form->createView();
         $formView->children['attachmentsInput']->vars = array_replace(
             $formView->children['attachmentsInput']->vars,
-            array('full_name' => 'diamante_comment_form[attachmentsInput][]')
+            ['full_name' => 'diamante_comment_form[attachmentsInput][]']
         );
         try {
             $this->handle($request, $form);
@@ -123,11 +137,17 @@ class CommentController extends Controller
             } else {
                 $this->addSuccessMessage('diamante.desk.comment.messages.create.success');
             }
-            $response = $this->getSuccessSaveResponse('diamante_comment_update', 'diamante_ticket_view', ['key' => (string)$ticket->getKey()]);
+            $response =
+                $this->getSuccessSaveResponse(
+                    'diamante_comment_update',
+                    'diamante_ticket_view',
+                    ['key' => (string)$ticket->getKey()]
+                );
         } catch (\Exception $e) {
             $this->handleException($e);
-            $response = array('form' => $formView, 'ticket' => $ticket);
+            $response = ['form' => $formView, 'ticket' => $ticket];
         }
+
         return $response;
     }
 
@@ -153,7 +173,7 @@ class CommentController extends Controller
         }
 
         return $this->redirect(
-            $this->generateUrl('diamante_ticket_view', array('key' => $ticketKey))
+            $this->generateUrl('diamante_ticket_view', ['key' => $ticketKey])
         );
     }
 
@@ -185,7 +205,7 @@ class CommentController extends Controller
         }
 
         $response = new \Symfony\Component\HttpFoundation\BinaryFileResponse($filePathname);
-        $response->trustXSendfileTypeHeader();
+        $response::trustXSendfileTypeHeader();
         $response->setContentDisposition(
             \Symfony\Component\HttpFoundation\ResponseHeaderBag::DISPOSITION_ATTACHMENT,
             $filename,
@@ -222,10 +242,12 @@ class CommentController extends Controller
             $this->handleException($e);
         }
 
-        $response = $this->redirect($this->generateUrl(
-            'diamante_comment_update',
-            array('id' => $commentId)
-        ));
+        $response = $this->redirect(
+            $this->generateUrl(
+                'diamante_comment_update',
+                ['id' => $commentId]
+            )
+        );
 
         return $response;
     }
