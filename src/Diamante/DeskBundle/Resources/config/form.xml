@@ -59,7 +59,7 @@
         </service>
         <service id="diamante_desk_default_branch" class="%diamante_desk_default_branch.type.class%">
             <argument type="service" id="diamante.branch.service"/>
-            <tag name="form.type" alias="diamante_desk_default_branch"/>
+            <tag name="form.type" />
         </service>
         <service id="diamante_user_select" class="%diamante_user_select.type.class%">
             <tag name="form.type" alias="diamante_user_select"/>
