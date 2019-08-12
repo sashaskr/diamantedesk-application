@@ -37,7 +37,7 @@ class BranchWidgetController extends WidgetController
      * @Template("DiamanteDeskBundle:Branch/widgets:deleteForm.html.twig")
      *
      */
-    public function deleteBranchViewForm(Request $request, $id)
+    public function deleteBranchViewForm(Request $request, $id): array
     {
         $response = $this->deleteBranchForm($request, $id);
         $response['delete_route'] = 'diamante_branch_view_delete_form';
@@ -54,7 +54,7 @@ class BranchWidgetController extends WidgetController
      * @Template("DiamanteDeskBundle:Branch/widgets:deleteForm.html.twig")
      *
      */
-    public function deleteBranchListForm(Request $request, $id)
+    public function deleteBranchListForm(Request $request, $id): array
     {
         $response = $this->deleteBranchForm($request, $id, false);
         $response['delete_route'] = 'diamante_branch_list_delete_form';
@@ -129,7 +129,6 @@ class BranchWidgetController extends WidgetController
                 $iteration
             );
             $response = $this->getWidgetResponse();
-
         } catch (DefaultBranchException $e) {
             $this->handleMassBranchException($e);
             $response = $this->getWidgetResponse();
@@ -154,6 +153,7 @@ class BranchWidgetController extends WidgetController
 
             if (true === $this->widgetRedirectRequested($request)) {
                 $response = ['form' => $form->createView()];
+
                 return $response;
             }
 
@@ -184,7 +184,6 @@ class BranchWidgetController extends WidgetController
             if ($redirect) {
                 $response['redirect'] = $this->generateUrl('diamante_branch_list');
             }
-
         } catch (DefaultBranchException $e) {
             $this->handleException($e);
             $response = $this->getWidgetResponse();
@@ -222,7 +221,7 @@ class BranchWidgetController extends WidgetController
 
         $command->branch = $branchService->getBranch($newBranchId);
 
-        if ($command->branch->getId() != $ticket->getBranch()->getId()) {
+        if ($command->branch->getId() !== $ticket->getBranch()->getId()) {
             $this->get('diamante.ticket.service')->moveTicket($command);
         }
 
@@ -240,7 +239,7 @@ class BranchWidgetController extends WidgetController
 
         $this->get('monolog.logger.diamante')
             ->error(
-                sprintf("%s: %s", $message, $e->getMessage())
+                sprintf('%s: %s', $message, $e->getMessage())
             );
 
         $this->addErrorMessage($message, $parameters, $number);
