@@ -14,7 +14,7 @@
  */
 namespace Diamante\DeskBundle\Form\Type;
 
-use Oro\Bundle\ApiBundle\Form\Type\EntityType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
